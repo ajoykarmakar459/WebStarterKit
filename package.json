@@ -1,0 +1,25 @@
+{
+	"name": "WebStarterKit",
+	"version": "1.0.0",
+	"description": "Web starter kit that use universal node modules",
+	"main": "index.js",
+	"scripts": {
+		"run": "rm -rf ./build && gulp build && gulp run"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bootstrap": "file:../../../node_modules/bootstrap",
+		"gulp": "file:../../../node_modules/gulp",
+		"gulp-clean-css": "file:../../../node_modules/gulp-clean-css",
+		"gulp-livereload": "file:../../../node_modules/gulp-livereload",
+		"gulp-autoprefixer": "file:../../../node_modules/gulp-autoprefixer",
+		"gulp-webserver": "file:../../../node_modules/gulp-webserver",
+		"gulp-minify": "file:../../../node_modules/gulp-minify"
+	},
+	"devDependencies": {
+		"gulp-file-include": "file:../../../node_modules/gulp-file-include",
+		"gulp-sass": "file:../../../node_modules/gulp-sass",
+		"node-sass": "file:../../../node_modules/node-sass"
+	}
+}
