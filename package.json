@@ -15,7 +15,8 @@
 		"gulp-livereload": "file:../../../node_modules/gulp-livereload",
 		"gulp-autoprefixer": "file:../../../node_modules/gulp-autoprefixer",
 		"gulp-webserver": "file:../../../node_modules/gulp-webserver",
-		"gulp-minify": "file:../../../node_modules/gulp-minify"
+		"gulp-minify": "file:../../../node_modules/gulp-minify",
+		"gulp-imagemin": "file:../../../node_modules/gulp-imagemin"
 	},
 	"devDependencies": {
 		"gulp-file-include": "file:../../../node_modules/gulp-file-include",

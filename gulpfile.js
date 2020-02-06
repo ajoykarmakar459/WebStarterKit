@@ -53,7 +53,8 @@ gulp.task('imagemin', async function () {
 
 gulp.task('watch', function () {
     gulp.watch('./src/library/style/app.scss', gulp.series('styles'));
-    gulp.watch('./src/components/*.html', gulp.series('fileinclude'));
+    gulp.watch('./src/components/*/*.scss', gulp.series('styles'));
+    gulp.watch('./src/components/*/*.html', gulp.series('fileinclude'));
     gulp.watch('./src/*.html', gulp.series('fileinclude'));
     gulp.watch('./src/library/js/*.js', gulp.series('compress'));
     gulp.watch('./src/assets/*', gulp.series('imagemin'));
