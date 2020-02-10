@@ -10,3 +10,4 @@ gen
 node_modules/
 build/
 package-lock.json
+src/library/.DS_Store

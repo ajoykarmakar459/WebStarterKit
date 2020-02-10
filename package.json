@@ -6,7 +6,7 @@
 	"scripts": {
 		"run": "rm -rf ./build && gulp build && gulp run"
 	},
-	"author": "",
+	"author": "Ajoy Karmakar",
 	"license": "ISC",
 	"dependencies": {
 		"bootstrap": "file:../../../node_modules/bootstrap",
@@ -14,13 +14,19 @@
 		"gulp-clean-css": "file:../../../node_modules/gulp-clean-css",
 		"gulp-livereload": "file:../../../node_modules/gulp-livereload",
 		"gulp-autoprefixer": "file:../../../node_modules/gulp-autoprefixer",
-		"gulp-webserver": "file:../../../node_modules/gulp-webserver",
 		"gulp-minify": "file:../../../node_modules/gulp-minify",
-		"gulp-imagemin": "file:../../../node_modules/gulp-imagemin"
+		"gulp-imagemin": "file:../../../node_modules/gulp-imagemin",
+		"gulp-concat": "file:../../../node_modules/gulp-concat",
+		"jquery": "file:../../../node_modules/jquery",
+		"rename-css-selectors": "file:../../../node_modules/rename-css-selectors",
+		"gulp-purifycss": "file:../../../node_modules/gulp-purifycss"
 	},
 	"devDependencies": {
 		"gulp-file-include": "file:../../../node_modules/gulp-file-include",
 		"gulp-sass": "file:../../../node_modules/gulp-sass",
-		"node-sass": "file:../../../node_modules/node-sass"
+		"node-sass": "file:../../../node_modules/node-sass",
+		"gulp-purgecss": "file:../../../node_modules/gulp-purgecss",
+		"gulp-fixmyjs": "file:../../../node_modules/gulp-fixmyjs",
+		"browser-sync": "file:../../../node_modules/browser-sync"
 	}
 }

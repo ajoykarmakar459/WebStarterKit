@@ -1,7 +1,4 @@
-console.log('hi')
-
-
-function a() {
-alert('boom hey')
-}
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
 
