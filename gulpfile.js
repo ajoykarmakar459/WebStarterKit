@@ -55,7 +55,7 @@ gulp.task('styles', async function () {
 });
 
 // Gulp task to minify CSS files
-gulp.task('minstyles', function () {
+gulp.task('minstyles', async function () {
     gulp.src('./src/library/style/app.scss')
         // Compile SASS files
         .pipe(sass({
