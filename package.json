@@ -20,7 +20,7 @@
 		"jquery": "file:../../../node_modules/jquery",
 		"rename-css-selectors": "file:../../../node_modules/rename-css-selectors",
 		"gulp-purifycss": "file:../../../node_modules/gulp-purifycss",
-		"gulp-sourcemaps": "file:../../../node_modules/gulp-purifycss"
+		"gulp-sourcemaps": "file:../../../node_modules/gulp-sourcemaps"
 	},
 	"devDependencies": {
 		"gulp-file-include": "file:../../../node_modules/gulp-file-include",
