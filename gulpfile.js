@@ -65,7 +65,7 @@ gulp.task('minstyles', async function () {
             onError: console.error.bind(console, 'Sass error:')
         }))
         // Auto-prefix css styles for cross browser compatibility
-        .pipe(autoprefixer())
+        .pipe(autoprefixer({overrideBrowserslist: ['last 2 versions', 'iOS 8']}))
         // Minify the file
         .pipe(cleanCSS({keepSpecialComments: false}, (details) => {
             console.log(`${details.name}: ${details.stats.originalSize}`);
