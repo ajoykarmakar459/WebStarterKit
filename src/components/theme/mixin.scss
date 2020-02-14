@@ -1,0 +1,5 @@
+//primary gradient
+@mixin primary-linear-gradient() {
+  background: $primary;
+  background: linear-gradient(to right, $primary 0%,$primarydark 100%);
+}
