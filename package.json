@@ -7,7 +7,7 @@
 		"run": "rm -rf ./build && gulp build && gulp run"
 	},
 	"author": "Ajoy Karmakar",
-	"license": "ISC",
+	"license": "MIT",
 	"dependencies": {
 		"bootstrap": "file:../../../node_modules/bootstrap",
 		"gulp": "file:../../../node_modules/gulp",
@@ -20,7 +20,10 @@
 		"jquery": "file:../../../node_modules/jquery",
 		"rename-css-selectors": "file:../../../node_modules/rename-css-selectors",
 		"gulp-purifycss": "file:../../../node_modules/gulp-purifycss",
-		"gulp-sourcemaps": "file:../../../node_modules/gulp-sourcemaps"
+		"gulp-sourcemaps": "file:../../../node_modules/gulp-sourcemaps",
+		"gulp-htmllint": "file:../../../node_modules/gulp-htmllint",
+		"fancy-log": "file:../../../node_modules/fancy-log",
+		"ansi-colors": "file:../../../node_modules/ansi-colors"
 	},
 	"devDependencies": {
 		"gulp-file-include": "file:../../../node_modules/gulp-file-include",

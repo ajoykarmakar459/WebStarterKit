@@ -15,6 +15,9 @@ var browserSync = require('browser-sync').create();
 
 appVars = require('./src/library/js/plugins');
 
+htmllint = require('gulp-htmllint');
+fancyLog = require('fancy-log');
+colors = require('ansi-colors');
 
 gulp.task('fileinclude', async function () {
     gulp.src(['./src/*.html'])
@@ -22,9 +25,20 @@ gulp.task('fileinclude', async function () {
             prefix: '@@',
             basepath: '@file'
         }))
+        .pipe(htmllint({}, htmllintReporter))
         .pipe(gulp.dest('./build'))
         .pipe(browserSync.reload({stream: true}));
 });
+
+function htmllintReporter(filepath, issues) {
+    if (issues.length > 0) {
+        issues.forEach(function (issue) {
+            fancyLog(colors.cyan('[gulp-htmllint] ') + colors.white(filepath + ' [' + issue.line + ',' + issue.column + ']: ') + colors.red('(' + issue.code + ') ' + issue.msg));
+        });
+
+        process.exitCode = 1;
+    }
+}
 
 gulp.task('scripts', function () {
     return gulp.src(appVars.JS_Library)
