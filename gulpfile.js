@@ -12,34 +12,24 @@ var sourcemaps = require('gulp-sourcemaps');
 const purgecss = require('gulp-purgecss');
 var fixmyjs = require("gulp-fixmyjs");
 var browserSync = require('browser-sync').create();
+const htmlValidator = require('gulp-w3c-html-validator');
 
 appVars = require('./src/library/js/plugins');
 
-htmllint = require('gulp-htmllint');
-fancyLog = require('fancy-log');
-colors = require('ansi-colors');
-
+// Merge All HTML
 gulp.task('fileinclude', async function () {
     gulp.src(['./src/*.html'])
         .pipe(fileinclude({
             prefix: '@@',
             basepath: '@file'
         }))
-        .pipe(htmllint({}, htmllintReporter))
         .pipe(gulp.dest('./build'))
+        .pipe(htmlValidator())
+        .pipe(htmlValidator.reporter())
         .pipe(browserSync.reload({stream: true}));
 });
 
-function htmllintReporter(filepath, issues) {
-    if (issues.length > 0) {
-        issues.forEach(function (issue) {
-            fancyLog(colors.cyan('[gulp-htmllint] ') + colors.white(filepath + ' [' + issue.line + ',' + issue.column + ']: ') + colors.red('(' + issue.code + ') ' + issue.msg));
-        });
-
-        process.exitCode = 1;
-    }
-}
-
+// Merge ALL JS
 gulp.task('scripts', function () {
     return gulp.src(appVars.JS_Library)
         .pipe(concat('app.js'))
@@ -89,6 +79,7 @@ gulp.task('minstyles', async function () {
         .pipe(gulp.dest('./build/library/style'));
 });
 
+// COMPRESS ALL JS
 gulp.task('compress', async function () {
     gulp.src(['./src/library/js/*.js'])
         .pipe(minify())
@@ -96,6 +87,7 @@ gulp.task('compress', async function () {
         .pipe(browserSync.reload({stream: true}));
 });
 
+// MINIFY ALL IMAGES
 gulp.task('imagemin', async function () {
     gulp.src('src/assets/**/*')
         .pipe(imagemin())
@@ -104,6 +96,7 @@ gulp.task('imagemin', async function () {
 
 });
 
+// REMOVE UNNECESSARY CSS
 gulp.task('purgecss', () => {
     return gulp.src('build/library/style/app.css')
         .pipe(purgecss({
@@ -112,6 +105,7 @@ gulp.task('purgecss', () => {
         .pipe(gulp.dest('build/library/style'))
 });
 
+// REMOVE UNNECESSARY JS
 gulp.task('cleanjs', () => {
     return gulp.src("./build/library/js/app-min.js")
         .pipe(fixmyjs({
@@ -121,6 +115,7 @@ gulp.task('cleanjs', () => {
         .pipe(gulp.dest('./build/library/js'))
 });
 
+// CHECK FILE CHANGES
 gulp.task('watch', function () {
     gulp.watch('./src/library/style/app.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.scss', gulp.series('styles'));
