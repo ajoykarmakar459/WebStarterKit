@@ -10,8 +10,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"bootstrap": "file:../../../node_modules/bootstrap",
-		"boxen": "^4.2.0",
-		"chalk": "^3.0.0",
 		"gulp": "file:../../../node_modules/gulp",
 		"gulp-autoprefixer": "file:../../../node_modules/gulp-autoprefixer",
 		"gulp-clean-css": "file:../../../node_modules/gulp-clean-css",
@@ -24,9 +22,6 @@
 		"gulp-w3c-html-validator": "file:../../../node_modules/gulp-w3c-html-validator",
 		"jquery": "file:../../../node_modules/jquery",
 		"rename-css-selectors": "file:../../../node_modules/rename-css-selectors",
-		"yargs": "^15.1.0"
-	},
-	"devDependencies": {
 		"gulp-file-include": "file:../../../node_modules/gulp-file-include",
 		"gulp-sass": "file:../../../node_modules/gulp-sass",
 		"node-sass": "file:../../../node_modules/node-sass",
