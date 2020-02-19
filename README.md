@@ -45,7 +45,7 @@ We will place all node_module dependency in the root directory to save our stora
 It will automatically download the template and install all dependency.
  
 #### Create component -
-`component -c componentName`
+`component -n componentName`
 
 ##### &nbsp;
 
