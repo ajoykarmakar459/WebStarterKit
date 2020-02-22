@@ -13,17 +13,26 @@ const purgecss = require('gulp-purgecss');
 var fixmyjs = require("gulp-fixmyjs");
 var browserSync = require('browser-sync').create();
 const htmlValidator = require('gulp-w3c-html-validator');
+var notify = require('gulp-notify');
+var plumber = require('gulp-plumber');
 
 appVars = require('./src/library/js/plugins');
 
 // Merge All HTML
 gulp.task('fileinclude', async function () {
     gulp.src(['./src/*.html'])
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(fileinclude({
             prefix: '@@',
             basepath: '@file'
         }))
         .pipe(gulp.dest('./build'))
+        .pipe(browserSync.reload({stream: true}));
+});
+
+// HTML Validator
+gulp.task('htmlValidator', async function () {
+    gulp.src(['./build/*.html'])
         .pipe(htmlValidator())
         .pipe(htmlValidator.reporter())
         .pipe(browserSync.reload({stream: true}));
@@ -42,6 +51,7 @@ gulp.task('scripts', function () {
 gulp.task('styles', async function () {
     return gulp.src('./src/library/style/app.scss')
         // Compile SASS files
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(sourcemaps.init())
         .pipe(sass({
             outputStyle: 'nested',
@@ -82,6 +92,7 @@ gulp.task('minstyles', async function () {
 // COMPRESS ALL JS
 gulp.task('compress', async function () {
     gulp.src(['./src/library/js/*.js'])
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(minify())
         .pipe(gulp.dest('./build/library/js'))
         .pipe(browserSync.reload({stream: true}));
@@ -119,8 +130,10 @@ gulp.task('cleanjs', () => {
 gulp.task('watch', function () {
     gulp.watch('./src/library/style/app.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.scss', gulp.series('styles'));
+    gulp.watch('./src/components/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.html', gulp.series('fileinclude'));
     gulp.watch('./src/*.html', gulp.series('fileinclude'));
+    gulp.watch('./build/*.html', gulp.series('htmlValidator'));
     gulp.watch('./src/library/js/*.js', gulp.series('scripts'));
     gulp.watch('./src/assets/**/*', gulp.series('imagemin'));
 });
@@ -134,14 +147,20 @@ gulp.task('run', function () {
     });
     gulp.watch('./src/library/style/app.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.scss', gulp.series('styles'));
+    gulp.watch('./src/components/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.html', gulp.series('fileinclude'));
     gulp.watch('./src/*.html', gulp.series('fileinclude'));
+    gulp.watch('./build/*.html', gulp.series('htmlValidator'));
     gulp.watch('./src/library/js/*.js', gulp.series('scripts'));
     gulp.watch('./src/assets/*', gulp.series('imagemin'));
+    gulp.watch('./src/assets/*/*', gulp.series('imagemin'));
 });
 
+// build Task
+gulp.task('build', gulp.series('fileinclude', 'htmlValidator', 'styles', 'imagemin', 'scripts'));
+
 // Default Task
-gulp.task('build', gulp.series('fileinclude', 'styles', 'imagemin', 'scripts', 'watch'));
+gulp.task('default', gulp.series('build', 'run'));
 
 // Production Task
-gulp.task('prod', gulp.series('fileinclude', 'minstyles', 'imagemin', 'scripts', 'purgecss'));
+gulp.task('prod', gulp.series('fileinclude', 'htmlValidator', 'minstyles', 'imagemin', 'scripts', 'purgecss'));

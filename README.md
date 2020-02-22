@@ -23,9 +23,13 @@ We will place all node_module dependency in the root directory to save our stora
 
 `npm i`
 
-`gulp build`
+`gulp` = Project build and run.
 
-`gulp run`
+`gulp build` = Project will only build.
+
+`gulp run` = Project only run if the build folder is available.
+
+`gulp prod` = Project will build for production level.
 
 
 #### or with the CLI ================
