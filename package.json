@@ -29,6 +29,9 @@
 		"gulp-fixmyjs": "file:../../../node_modules/gulp-fixmyjs",
 		"browser-sync": "file:../../../node_modules/browser-sync",
 		"gulp-plumber": "file:../../../node_modules/gulp-plumber",
-		"gulp-notify": "file:../../../node_modules/gulp-notify"
+		"gulp-notify": "file:../../../node_modules/gulp-notify",
+		"del": "file:../../../node_modules/del",
+		"gulp-replace": "file:../../../node_modules/gulp-replace",
+		"gulp-rename": "file:../../../node_modules/gulp-rename"
 	}
 }

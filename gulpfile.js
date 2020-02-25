@@ -15,6 +15,9 @@ var browserSync = require('browser-sync').create();
 const htmlValidator = require('gulp-w3c-html-validator');
 var notify = require('gulp-notify');
 var plumber = require('gulp-plumber');
+var del = require('del');
+var replace = require('gulp-replace');
+var rename = require("gulp-rename");
 
 appVars = require('./src/library/js/plugins');
 
@@ -33,8 +36,9 @@ gulp.task('fileinclude', async function () {
 // HTML Validator
 gulp.task('htmlValidator', async function () {
     gulp.src(['./build/*.html'])
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(htmlValidator())
-        .pipe(htmlValidator.reporter())
+        // .pipe(htmlValidator.reporter())
         .pipe(browserSync.reload({stream: true}));
 });
 
@@ -42,7 +46,9 @@ gulp.task('htmlValidator', async function () {
 gulp.task('scripts', function () {
     return gulp.src(appVars.JS_Library)
         .pipe(concat('app.js'))
-        .pipe(minify())
+        .pipe(minify({
+            noSource: true
+        }))
         .pipe(gulp.dest('./build/library/js'))
         .pipe(browserSync.reload({stream: true}));
 });
@@ -62,7 +68,6 @@ gulp.task('styles', async function () {
         // Auto-prefix css styles for cross browser compatibility
         .pipe(autoprefixer())
         .pipe(sourcemaps.write())
-        // Minify the file
         // Output
         .pipe(gulp.dest('./build/library/style'))
         .pipe(browserSync.reload({stream: true}));
@@ -89,15 +94,6 @@ gulp.task('minstyles', async function () {
         .pipe(gulp.dest('./build/library/style'));
 });
 
-// COMPRESS ALL JS
-gulp.task('compress', async function () {
-    gulp.src(['./src/library/js/*.js'])
-        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-        .pipe(minify())
-        .pipe(gulp.dest('./build/library/js'))
-        .pipe(browserSync.reload({stream: true}));
-});
-
 // MINIFY ALL IMAGES
 gulp.task('imagemin', async function () {
     gulp.src('src/assets/**/*')
@@ -116,14 +112,41 @@ gulp.task('purgecss', () => {
         .pipe(gulp.dest('build/library/style'))
 });
 
-// REMOVE UNNECESSARY JS
-gulp.task('cleanjs', () => {
-    return gulp.src("./build/library/js/app-min.js")
-        .pipe(fixmyjs({
-            // JSHint settings here
-        }))
-        .pipe(minify())
-        .pipe(gulp.dest('./build/library/js'))
+// Random string generator
+function randomString(length) {
+    let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+
+// File Version Change
+gulp.task('VersionChnageTask', async function () {
+    let randomstr = "app_v=" + randomString(10);
+    await gulp.src("./build/library/js/app-min.js")
+        .pipe(rename(randomstr + ".js"))
+        .pipe(gulp.dest("./build/library/js"));
+
+    await gulp.src("./build/library/style/app.css")
+        .pipe(rename(randomstr + ".css"))
+        .pipe(gulp.dest("./build/library/style"));
+
+    await gulp.src(['build/*.html'])
+        .pipe(replace('app-min.js', randomstr + ".js"))
+        .pipe(replace('app.css', randomstr + ".css"))
+        .pipe(gulp.dest('build/'));
+
+    return del([
+        'build/library/js/app-min.js',
+        'build/library/style/app.css',
+    ])
+});
+
+// Before Production build clean everything
+gulp.task('cleanEverything', async function () {
+    return del([
+        'build'
+    ])
 });
 
 // CHECK FILE CHANGES
@@ -163,4 +186,10 @@ gulp.task('build', gulp.series('fileinclude', 'htmlValidator', 'styles', 'imagem
 gulp.task('default', gulp.series('build', 'run'));
 
 // Production Task
-gulp.task('prod', gulp.series('fileinclude', 'htmlValidator', 'minstyles', 'imagemin', 'scripts', 'purgecss'));
+gulp.task('prod', gulp.series('cleanEverything', 'fileinclude', 'htmlValidator', 'minstyles', 'imagemin', 'scripts', 'purgecss', 'VersionChnageTask'));
+
+
+// {
+//     "library/js/app-min.js": "library/js/app-min-c7e66794a4.js",
+//     "library/style/app.css": "library/style/app-0f4268700a.css"
+// }

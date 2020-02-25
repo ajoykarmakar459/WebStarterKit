@@ -43,6 +43,10 @@
     "gulp-fixmyjs": "^1.0.2",
     "gulp-purgecss": "^2.0.6",
     "gulp-sass": "^4.0.2",
-    "node-sass": "^4.13.1"
+    "node-sass": "^4.13.1",
+    "del": "^5.1.0",
+    "gulp-rev": "^9.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-rename": "^2.0.0"
   }
 }
