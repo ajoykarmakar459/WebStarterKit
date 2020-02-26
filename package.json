@@ -32,6 +32,7 @@
 		"gulp-notify": "file:../../../node_modules/gulp-notify",
 		"del": "file:../../../node_modules/del",
 		"gulp-replace": "file:../../../node_modules/gulp-replace",
-		"gulp-rename": "file:../../../node_modules/gulp-rename"
+		"gulp-rename": "file:../../../node_modules/gulp-rename",
+		"gulp-htmlmin": "file:../../../node_modules/gulp-htmlmin"
 	}
 }

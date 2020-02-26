@@ -18,6 +18,7 @@ var plumber = require('gulp-plumber');
 var del = require('del');
 var replace = require('gulp-replace');
 var rename = require("gulp-rename");
+const htmlmin = require('gulp-htmlmin');
 
 appVars = require('./src/library/js/plugins');
 
@@ -134,6 +135,7 @@ gulp.task('VersionChnageTask', async function () {
     await gulp.src(['build/*.html'])
         .pipe(replace('app-min.js', randomstr + ".js"))
         .pipe(replace('app.css', randomstr + ".css"))
+        .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest('build/'));
 
     return del([
@@ -187,9 +189,3 @@ gulp.task('default', gulp.series('build', 'run'));
 
 // Production Task
 gulp.task('prod', gulp.series('cleanEverything', 'fileinclude', 'htmlValidator', 'minstyles', 'imagemin', 'scripts', 'purgecss', 'VersionChnageTask'));
-
-
-// {
-//     "library/js/app-min.js": "library/js/app-min-c7e66794a4.js",
-//     "library/style/app.css": "library/style/app-0f4268700a.css"
-// }
