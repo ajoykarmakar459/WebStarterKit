@@ -35,10 +35,6 @@ We will place all node_module dependency in the root directory to save our stora
 #### or with the CLI ================
 ##### Install the package with this command -
 
-`npm i -g shelljs`
-
-##### After that -
-
 `npm i -g webcreate-cli`
 
 ##### Create Project with this command -
