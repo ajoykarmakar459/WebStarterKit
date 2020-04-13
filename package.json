@@ -33,6 +33,7 @@
 		"del": "file:../../../node_modules/del",
 		"gulp-replace": "file:../../../node_modules/gulp-replace",
 		"gulp-rename": "file:../../../node_modules/gulp-rename",
-		"gulp-htmlmin": "file:../../../node_modules/gulp-htmlmin"
+		"gulp-htmlmin": "file:../../../node_modules/gulp-htmlmin",
+		"shelljs": "file:../../../node_modules/shelljs"
 	}
 }

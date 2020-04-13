@@ -7,18 +7,20 @@ livereload = require('gulp-livereload');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-minify');
 const imagemin = require('gulp-imagemin');
-var concat = require('gulp-concat');
-var sourcemaps = require('gulp-sourcemaps');
+const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
 const purgecss = require('gulp-purgecss');
-var fixmyjs = require("gulp-fixmyjs");
-var browserSync = require('browser-sync').create();
+const fixmyjs = require("gulp-fixmyjs");
+const browserSync = require('browser-sync').create();
 const htmlValidator = require('gulp-w3c-html-validator');
-var notify = require('gulp-notify');
-var plumber = require('gulp-plumber');
+const notify = require('gulp-notify');
+const plumber = require('gulp-plumber');
 var del = require('del');
 var replace = require('gulp-replace');
 var rename = require("gulp-rename");
 const htmlmin = require('gulp-htmlmin');
+var shell = require('shelljs');
+const os = require('os');
 
 appVars = require('./src/library/js/plugins');
 
@@ -88,8 +90,8 @@ gulp.task('minstyles', async function () {
         .pipe(autoprefixer({overrideBrowserslist: ['last 2 versions', 'iOS 8']}))
         // Minify the file
         .pipe(cleanCSS({keepSpecialComments: false}, (details) => {
-            console.log(`${details.name}: ${details.stats.originalSize}`);
-            console.log(`${details.name}: ${details.stats.minifiedSize}`);
+            // console.log(`${details.name}: ${details.stats.originalSize}`);
+            // console.log(`${details.name}: ${details.stats.minifiedSize}`);
         }))
         // Output
         .pipe(gulp.dest('./build/library/style'));
@@ -116,8 +118,8 @@ gulp.task('purgecss', () => {
 // Random string generator
 function randomString(length) {
     let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    var result = '';
-    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    let result = '';
+    for (let i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
     return result;
 }
 
@@ -142,6 +144,7 @@ gulp.task('VersionChnageTask', async function () {
         'build/library/js/app-min.js',
         'build/library/style/app.css',
     ])
+
 });
 
 // Before Production build clean everything
@@ -151,9 +154,21 @@ gulp.task('cleanEverything', async function () {
     ])
 });
 
+// Create folder for developer
+gulp.task('devfolder', async function () {
+    if (os.platform() === 'darwin') {
+        shell.exec('cp -avr build dev-build')
+        shell.exec('mv dev-build build/')
+    } else {
+        shell.exec('xcopy  build dev-build /e /i /h')
+        shell.exec('move dev-build build')
+    }
+})
+
+
 // CHECK FILE CHANGES
 gulp.task('watch', function () {
-    gulp.watch('./src/library/style/app.scss', gulp.series('styles'));
+    gulp.watch('./src/library/style/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.html', gulp.series('fileinclude'));
@@ -170,7 +185,7 @@ gulp.task('run', function () {
             baseDir: 'build'
         },
     });
-    gulp.watch('./src/library/style/app.scss', gulp.series('styles'));
+    gulp.watch('./src/library/style/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*.scss', gulp.series('styles'));
     gulp.watch('./src/components/*/*.html', gulp.series('fileinclude'));
@@ -188,4 +203,5 @@ gulp.task('build', gulp.series('fileinclude', 'htmlValidator', 'styles', 'imagem
 gulp.task('default', gulp.series('build', 'run'));
 
 // Production Task
-gulp.task('prod', gulp.series('cleanEverything', 'fileinclude', 'htmlValidator', 'minstyles', 'imagemin', 'scripts', 'purgecss', 'VersionChnageTask'));
+gulp.task('prod', gulp.series('cleanEverything', 'fileinclude', 'htmlValidator', 'minstyles', 'imagemin', 'scripts', 'purgecss', 'devfolder', 'VersionChnageTask'));
+
