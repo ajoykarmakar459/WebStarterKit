@@ -19,7 +19,6 @@
 		"gulp-minify": "file:../../../node_modules/gulp-minify",
 		"gulp-purifycss": "file:../../../node_modules/gulp-purifycss",
 		"gulp-sourcemaps": "file:../../../node_modules/gulp-sourcemaps",
-		"gulp-w3c-html-validator": "file:../../../node_modules/gulp-w3c-html-validator",
 		"jquery": "file:../../../node_modules/jquery",
 		"rename-css-selectors": "file:../../../node_modules/rename-css-selectors",
 		"gulp-file-include": "file:../../../node_modules/gulp-file-include",
@@ -34,6 +33,7 @@
 		"gulp-replace": "file:../../../node_modules/gulp-replace",
 		"gulp-rename": "file:../../../node_modules/gulp-rename",
 		"gulp-htmlmin": "file:../../../node_modules/gulp-htmlmin",
-		"shelljs": "file:../../../node_modules/shelljs"
+		"shelljs": "file:../../../node_modules/shelljs",
+		"gulp-html": "file:../../../node_modules/gulp-html"
 	}
 }

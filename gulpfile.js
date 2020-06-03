@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const fileinclude = require('gulp-file-include');
 let cleanCSS = require('gulp-clean-css');
-var sass = require('gulp-sass');
+const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 livereload = require('gulp-livereload');
 const autoprefixer = require('gulp-autoprefixer');
@@ -12,14 +12,14 @@ const sourcemaps = require('gulp-sourcemaps');
 const purgecss = require('gulp-purgecss');
 const fixmyjs = require("gulp-fixmyjs");
 const browserSync = require('browser-sync').create();
-const htmlValidator = require('gulp-w3c-html-validator');
+const validator = require('gulp-html');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
-var del = require('del');
-var replace = require('gulp-replace');
-var rename = require("gulp-rename");
+const del = require('del');
+const replace = require('gulp-replace');
+const rename = require("gulp-rename");
 const htmlmin = require('gulp-htmlmin');
-var shell = require('shelljs');
+const shell = require('shelljs');
 const os = require('os');
 
 appVars = require('./src/library/js/plugins');
@@ -40,7 +40,7 @@ gulp.task('fileinclude', async function () {
 gulp.task('htmlValidator', async function () {
     gulp.src(['./build/*.html'])
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-        .pipe(htmlValidator())
+        .pipe(validator())
         // .pipe(htmlValidator.reporter())
         .pipe(browserSync.reload({stream: true}));
 });
