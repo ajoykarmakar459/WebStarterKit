@@ -157,11 +157,11 @@ gulp.task('cleanEverything', async function () {
 // Create folder for developer
 gulp.task('devfolder', async function () {
     if (os.platform() === 'darwin') {
-        shell.exec('cp -avr build dev-build')
-        shell.exec('mv dev-build build/')
+        await shell.exec('cp -avr build dev-build')
+        await shell.exec('mv dev-build build/')
     } else {
-        shell.exec('xcopy  build dev-build /e /i /h')
-        shell.exec('move dev-build build')
+        await shell.exec('xcopy  build dev-build /e /i /h')
+        await shell.exec('move dev-build build')
     }
 })
 
