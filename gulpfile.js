@@ -1,8 +1,8 @@
 const gulp = require('gulp');
 const fileinclude = require('gulp-file-include');
 let cleanCSS = require('gulp-clean-css');
-const sass = require('gulp-sass');
-sass.compiler = require('node-sass');
+// const sass = require('gulp-sass');
+var sass = require('gulp-dart-sass');
 livereload = require('gulp-livereload');
 const autoprefixer = require('gulp-autoprefixer');
 const minify = require('gulp-minify');
@@ -60,14 +60,9 @@ gulp.task('scripts', function () {
 gulp.task('styles', async function () {
     return gulp.src('./src/library/style/app.scss')
         // Compile SASS files
+        .pipe(sass.sync().on('error', sass.logError))
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(sourcemaps.init())
-        .pipe(sass({
-            outputStyle: 'nested',
-            precision: 10,
-            includePaths: ['.'],
-            onError: console.error.bind(console, 'Sass error:')
-        }))
         // Auto-prefix css styles for cross browser compatibility
         .pipe(autoprefixer())
         .pipe(sourcemaps.write())
@@ -80,12 +75,7 @@ gulp.task('styles', async function () {
 gulp.task('minstyles', async function () {
     gulp.src('./src/library/style/app.scss')
         // Compile SASS files
-        .pipe(sass({
-            outputStyle: 'nested',
-            precision: 10,
-            includePaths: ['.'],
-            onError: console.error.bind(console, 'Sass error:')
-        }))
+        .pipe(sass().on('error', sass.logError))
         // Auto-prefix css styles for cross browser compatibility
         .pipe(autoprefixer({overrideBrowserslist: ['last 2 versions', 'iOS 8']}))
         // Minify the file
