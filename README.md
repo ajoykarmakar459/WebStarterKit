@@ -1,19 +1,22 @@
 # WebStarterKit
-Web starter kit that use gulp and universal node modules to save your storage device.
 
-#### src - 
+Web starter kit build with gulp ❤️. Code like single page application and it's compile into regular HTML, CSS, JS files. Compression enabled by default for your all files. So your website will execute with minimum size that increases the performance and user experience.
+
+#### src -
+
 ###### We will store our HTML,CSS,JS and Assets file here.
 
-#### gulpfile.js - 
+#### gulpfile.js -
+
 ###### Gulp Configaration file.
 
-#### package.json - 
+#### package.json -
+
 ###### All dependency we saved here.
 
 We will place all node_module dependency in the root directory to save our storage.
 
-
-#### To Run the file 
+#### To Run the file
 
 `git clone https://github.com/ajoykarmakar459/WebStarterKit.git`
 
@@ -31,8 +34,8 @@ We will place all node_module dependency in the root directory to save our stora
 
 `gulp prod` = Project will build for production level.
 
-
 #### or with the CLI ================
+
 ##### Install the package with this command -
 
 `npm i -g webcreate-cli`
@@ -41,13 +44,14 @@ We will place all node_module dependency in the root directory to save our stora
 
 `webcreate -n ProjectName`
 
-
 It will automatically download the template and install all dependency.
- 
+
 #### Create component -
+
 `component -n componentName`
 
 ##### &nbsp;
 
 ##### NPM LINK -
+
 [webcreate-cli](https://www.npmjs.com/package/webcreate-cli)
