@@ -1,7 +1,7 @@
 
 <img width="450" src="https://repository-images.githubusercontent.com/238456483/0172db80-6c9a-11eb-87eb-6629ca713fef" alt=""/>
 
-# WebStarterKit
+# WebStarterKit Template
 
 Web starter kit build with gulp ❤️. Code like single page application and it's compile into regular HTML, CSS, JS files. Compression enabled by default for your all files. So your website will execute with minimum size that increases the performance and user experience.
 
@@ -10,7 +10,7 @@ We will store our HTML,CSS,JS and Assets file here. Read HTML <a href="https://g
 
 #### gulpfile.js -
 
-Gulp Configaration file.
+Gulp Configuration file.
 
 #### package.json -
 
@@ -56,6 +56,7 @@ All dependency we saved here.
 
 It will automatically download the template and install all dependency.
 
+------------------
 
 #### Create component -
 
